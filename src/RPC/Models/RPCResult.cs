@@ -28,6 +28,15 @@ namespace GrindBreaker.RPC.Models
             };
         }
 
+        public static RPCResult<T> NotFound()
+        {
+            return new RPCResult<T>
+            {
+                IsError = false,
+                Data = default
+            };
+        }
+
         public static RPCResult<T> Error(string errorMessage)
         {
             return new RPCResult<T>
