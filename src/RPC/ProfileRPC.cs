@@ -28,9 +28,9 @@ namespace GrindBreaker.RPC
                 
                 if (profile == null)
                 {
-                    var result = RPCResult<Profile>.Error("Profile not found");
+                    var result = RPCResult<Profile>.NotFound();
                     var json = JsonConvert.SerializeObject(result);
-                    webview.Return(id, RPCResultType.Error, json);
+                    webview.Return(id, RPCResultType.Success, json);
                     return;
                 }
                 
@@ -66,6 +66,7 @@ namespace GrindBreaker.RPC
         {
             try
             {
+                Console.WriteLine(req);
                 // Parse the JSON request to get the profile data array
                 var profiles = JsonConvert.DeserializeObject<Profile[]>(req);
                 
@@ -97,7 +98,7 @@ namespace GrindBreaker.RPC
             catch (JsonException ex)
             {
                 // Log the exception if you have logging configured
-                Console.WriteLine($"Error deserializing profile JSON: {ex.Message}");
+                Console.WriteLine($"Error deserializing profile JSON: {ex.StackTrace}");
                 var result = RPCResult<string>.Error("Invalid JSON format");
                 var json = JsonConvert.SerializeObject(result);
                 webview.Return(id, RPCResultType.Error, json);
