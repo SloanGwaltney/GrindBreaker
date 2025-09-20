@@ -30,7 +30,7 @@ namespace GrindBreaker
             // get local flag
             var local = args.Contains("--local");
             var uiAddress = local ? GetNetworkLocalIPAddress() : _buildPath;
-            using var window = new WebviewWrapper(new Webview());
+            using var window = new WebviewWrapper(new Webview(true));
             window
                 .WebviewInstance
                 .SetTitle("Grind Breaker")
