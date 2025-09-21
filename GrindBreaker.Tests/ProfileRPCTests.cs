@@ -44,7 +44,7 @@ public class ProfileRPCTests
     }
 
     [Fact]
-    public void GetProfile_WhenProfileIsNull_ShouldReturnErrorResult()
+    public void GetProfile_WhenProfileIsNull_ShouldReturnSuccessWithNoData()
     {
         // Arrange
         var id = "test-id";
@@ -58,8 +58,8 @@ public class ProfileRPCTests
         // Assert
         _mockWebview.Verify(w => w.Return(
             id, 
-            RPCResultType.Error, 
-            It.Is<string>(json => ContainsErrorMessage(json, "Profile not found"))
+            RPCResultType.Success, 
+            It.Is<string>(json => ContainsNotFoundResult(json))
         ), Times.Once);
     }
 
@@ -352,6 +352,21 @@ public class ProfileRPCTests
             return result != null && 
                    !result.IsError && 
                    result.Data == expectedMessage;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
+    private static bool ContainsNotFoundResult(string json)
+    {
+        try
+        {
+            var result = JsonConvert.DeserializeObject<RPCResult<Profile>>(json);
+            return result != null && 
+                   !result.IsError && 
+                   result.Data == null;
         }
         catch
         {
