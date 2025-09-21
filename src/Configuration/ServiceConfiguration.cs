@@ -10,9 +10,11 @@ namespace GrindBreaker.Configuration
         {
             // Register repositories
             services.AddSingleton<IProfileRepository, ProfileRepository>();
+            services.AddSingleton<ICandidacyRepository, CandidacyRepository>();
             
             // Register RPC classes
             services.AddSingleton<ProfileRPC>();
+            services.AddSingleton<CandidacyRPC>();
             
             return services;
         }
