@@ -7,6 +7,12 @@ export default function Header() {
         <div className="px-2 font-bold">
           <Link to="/">Home</Link>
         </div>
+        <div className="px-2 font-bold">
+          <Link to="/profile">Profile</Link>
+        </div>
+        <div className="px-2 font-bold">
+          <Link to="/candidacies">Job Candidacies</Link>
+        </div>
       </nav>
     </header>
   )
